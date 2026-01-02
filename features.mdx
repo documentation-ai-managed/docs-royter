@@ -1,0 +1,144 @@
+---
+title: Core Features
+description: Learn about Royter's main features and how they can enhance your productivity and collaboration.
+---
+
+## Overview
+
+Royter provides powerful tools for team collaboration, task management, and real-time communication. You streamline workflows, assign tasks, and track progress effortlessly. Key features include real-time chat, kanban boards, file sharing, and integrations with popular services.
+
+<Callout kind="info">
+Royter supports teams of all sizes, from startups to enterprises, with scalable performance handling `<1000` concurrent users.
+</Callout>
+
+## Primary Tools
+
+Explore Royter's core tools through these feature cards. Each tool integrates seamlessly to boost your productivity.
+
+<Columns cols={3}>
+  <Card title="Real-time Chat" icon="message-circle" href="#real-time-chat">
+    Communicate instantly with threaded conversations and reactions.
+  </Card>
+  <Card title="Kanban Boards" icon="layout" href="#kanban-boards">
+    Visualize tasks with drag-and-drop columns and automation rules.
+  </Card>
+  <Card title="File Sharing" icon="upload" href="#file-sharing">
+    Securely upload, share, and collaborate on documents up to `{2GB}` per file.
+  </Card>
+</Columns>
+
+## Use Cases by User Role
+
+Royter adapts to different roles. Switch between perspectives using these tabs to see tailored examples.
+
+<Tabs>
+  <Tab title="Project Manager" icon="users">
+    Assign tasks and monitor deadlines.
+    
+    ```javascript
+    // API call to assign task
+    const response = await fetch('https://api.example.com/v1/tasks/assign', {
+      method: 'POST',
+      headers: { 'Authorization': 'Bearer YOUR_TOKEN' },
+      body: JSON.stringify({
+        taskId: 'task-123',
+        assigneeId: 'user-456'
+      })
+    });
+    ```
+    
+    Track progress with automated notifications.
+  </Tab>
+  <Tab title="Developer" icon="code">
+    Integrate Royter into your workflow for code reviews.
+    
+    ```python
+    import requests
+    
+    response = requests.post(
+        'https://api.example.com/v1/pull-requests/review',
+        headers={'Authorization': 'Bearer YOUR_TOKEN'},
+        json={'prId': 'pr-789', 'status': 'approved'}
+    )
+    ```
+    
+    Use slash commands in chat for quick deployments.
+  </Tab>
+  <Tab title="Designer" icon="feather">
+    Share mockups and gather feedback in channels.
+    
+    <Image
+      src="https://via.placeholder.com/600x400/3B82F6/FFFFFF?text=Designer+Workflow"
+      alt="Designer collaborating on mockups in Royter"
+      width="600"
+      height="400"
+    />
+  </Tab>
+</Tabs>
+
+## Customizing Features
+
+Tailor Royter to your team's needs with simple configuration. Follow these steps to set up custom workflows.
+
+<Steps>
+  <Step title="Create Workspace" icon="home">
+    Navigate to settings and define your workspace structure.
+    
+````bash
+royter-cli workspace create --name "MyTeam" --plan "pro"
+````
+  </Step>
+  <Step title="Configure Integrations" icon="plug">
+    Connect third-party apps like GitHub or Slack.
+    
+    <CodeGroup tabs="JavaScript,Python">
+```javascript
+// Add GitHub integration
+await royter.integrations.add('github', { repo: 'my-repo', token: 'YOUR_TOKEN' });
+```
+```python
+# Python SDK integration
+royter.integrations.add("github", repo="my-repo", token="YOUR_TOKEN")
+```
+    </CodeGroup>
+  </Step>
+  <Step title="Set Permissions" icon="shield">
+    Assign roles and automate approvals.
+  </Step>
+</Steps>
+
+## Best Practices for Daily Usage
+
+Maximize Royter's value with these tips:
+
+- Use `@mentions` for direct notifications to avoid email overload.
+- Set up recurring tasks for routine check-ins.
+- Review analytics weekly to optimize board usage.
+
+<Expandable title="Advanced Customization" default-open="false">
+  For power users, extend Royter with webhooks.
+  
+  ```json
+  {
+    "webhookUrl": "https://your-webhook-url.com/royter",
+    "events": ["task.updated", "message.sent"]
+  }
+  ```
+  
+  Register via the API:
+  
+````javascript
+fetch('https://api.example.com/v1/webhooks', {
+  method: 'POST',
+  body: JSON.stringify(webhookConfig)
+});
+````
+</Expandable>
+
+| Feature | Free Plan | Pro Plan |
+|---------|-----------|----------|
+| Users   | `<10`     | Unlimited |
+| Storage | `{5GB}`   | `{500GB}` |
+| Integrations | 5     | Unlimited |
+
+Adopt these practices to enhance collaboration and hit your productivity goals with Royter.

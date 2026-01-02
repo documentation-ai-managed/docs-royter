@@ -1,0 +1,125 @@
+---
+title: Changelog
+description: Stay informed about the latest updates, new features, and improvements in Royter.
+---
+
+## Recent Updates
+
+Royter releases updates regularly to add new features, fix bugs, and improve performance. You receive automatic notifications in your dashboard when a new version deploys. Check the tags on each release to understand the impact.
+
+<Callout kind="info">
+  Upgrade to the latest version for security patches and new capabilities. Visit the [dashboard](https://dashboard.example.com) to manage updates.
+</Callout>
+
+<Update label="2024-10-15" description="v1.2.0" tags={["feature", "improvement"]}>
+
+## New Features
+
+- Added real-time collaboration on documents with live cursors and comments.
+- Introduced webhook support for custom integrations. Configure at `https://dashboard.example.com/webhooks`.
+
+## Improvements
+
+- Reduced API response times by 40% through optimized caching.
+- Enhanced dashboard UI with dark mode toggle.
+
+## Bug Fixes
+
+- Fixed intermittent failures in batch processing endpoints.
+- Resolved authentication issues with long-lived tokens.
+
+</Update>
+
+<Update label="2024-09-20" description="v1.1.0" tags={["feature", "bugfix"]}>
+
+## New Features
+
+- Dashboard analytics with charts for usage trends.
+- API rate limiting controls per project.
+
+## Bug Fixes
+
+- Corrected error handling for invalid JSON payloads in `/v1/documents` endpoint.
+- Patched cross-site scripting vulnerability in shared links.
+
+</Update>
+
+<Update label="2024-08-10" description="v1.0.0" tags={["breaking", "feature"]}>
+
+## Breaking Changes
+
+- Updated authentication to use JWT tokens instead of API keys. Migrate using the new `/v1/auth/token` endpoint.
+
+## New Features
+
+- Core document creation and sharing API at `https://api.example.com/v1/documents`.
+- User management endpoints for teams.
+
+</Update>
+
+## Upgrade Process
+
+Follow these steps to upgrade Royter in your application or dashboard.
+
+<Steps>
+  <Step title="Check Compatibility" icon="check-circle">
+
+  Review the changelog for breaking changes. Test in staging first.
+
+  </Step>
+  <Step title="Update SDK" icon="download">
+
+  <CodeGroup tabs="npm,yarn">
+  ````bash
+  npm install @royter/sdk@latest
+  ````
+  ````bash
+  yarn add @royter/sdk@latest
+  ````
+  </CodeGroup>
+
+  </Step>
+  <Step title="Migrate Code" icon="code">
+
+  Update auth calls:
+
+  ````javascript
+  // Old
+  const response = await fetch('https://api.example.com/v1/documents', {
+    headers: { Authorization: `Bearer ${YOUR_OLD_TOKEN}` }
+  });
+
+  // New
+  const token = await getNewJWT(); // Use /v1/auth/token
+  const response = await fetch('https://api.example.com/v1/documents', {
+    headers: { Authorization: `Bearer ${token}` }
+  });
+  ````
+
+  </Step>
+  <Step title="Deploy" icon="rocket">
+
+  Deploy to production and monitor logs at `https://dashboard.example.com/logs`.
+
+  </Step>
+</Steps>
+
+## Upcoming Changes
+
+Preview what's coming next in Royter. These features enter beta soon.
+
+<Columns cols={2}>
+  <Card title="AI Document Summaries" icon="zap" href="/introduction#ai-features">
+    Generate summaries automatically using integrated AI models.
+  </Card>
+  <Card title="Advanced Permissions" icon="shield" href="/authentication#permissions">
+    Granular role-based access for teams.
+  </Card>
+  <Card title="Mobile SDK" icon="smartphone" href="/quickstart#mobile">
+    Native support for iOS and Android apps.
+  </Card>
+</Columns>
+
+<Callout kind="tip">
+  Join the beta program at `https://dashboard.example.com/beta` to test upcoming features early.
+</Callout>

@@ -1,0 +1,150 @@
+---
+title: Integrations and Extensions
+description: Connect Royter seamlessly with other tools and services to build a more powerful ecosystem.
+---
+
+## Overview
+
+Royter supports a wide range of integrations to extend your workflows. You can connect to popular tools like Slack, Zapier, and GitHub, or build custom solutions using webhooks and the REST API. This guide walks you through setup, automation, and troubleshooting.
+
+<Columns cols={3}>
+  <Card title="Slack" icon="message-circle" href="https://slack.com">
+    Send notifications for new events and alerts directly to your Slack channels.
+  </Card>
+  <Card title="Zapier" icon="zap" href="https://zapier.com">
+    Automate workflows across 5000+ apps with no-code Zapier integration.
+  </Card>
+  <Card title="GitHub" icon="github" href="https://github.com">
+    Sync repositories, issues, and pull requests with Royter projects.
+  </Card>
+</Columns>
+
+## Setting Up Third-Party Integrations
+
+Follow these steps to connect Royter with external services.
+
+<Steps>
+  <Step title="Create Integration" icon="plus">
+    Navigate to your Royter dashboard at `https://dashboard.example.com/integrations`. Click **Add Integration** and select the service.
+  </Step>
+  <Step title="Authorize Access" icon="key">
+    Grant permissions by signing in to the third-party service. Royter uses OAuth 2.0 for secure authorization.
+  </Step>
+  <Step title="Configure Events" icon="settings">
+    Choose events like `project.created` or `task.completed` to trigger actions.
+  </Step>
+  <Step title="Test Connection" icon="play">
+    Run a test event to verify the integration works.
+  </Step>
+</Steps>
+
+<Callout kind="tip">
+  Save your integration ID (`{integration_id}`) for API references.
+</Callout>
+
+## Using Webhooks for Automation
+
+Webhooks enable real-time notifications. Register a webhook URL in your Royter dashboard to receive POST requests on events.
+
+<Tabs>
+  <Tab title="Register Webhook" icon="link">
+    Use the dashboard or API to add webhooks.
+  </Tab>
+  <Tab title="Payload Example" icon="code">
+    <Request show-lines="true">
+      ```http
+      POST /webhooks/royter-events HTTP/1.1
+      Host: your-webhook-url.com
+      Content-Type: application/json
+      X-Royter-Signature: {signature}
+
+      {
+        "event": "task.completed",
+        "data": {
+          "id": "task_123",
+          "project_id": "proj_456",
+          "completed_at": "2024-01-15T10:30:00Z"
+        }
+      }
+      ```
+    </Request>
+  </Tab>
+</Tabs>
+
+Verify signatures using HMAC SHA-256 with your secret.
+
+<CodeGroup tabs="Node.js,Python">
+  ```javascript
+  const crypto = require('crypto');
+  function verifySignature(payload, signature, secret) {
+    const hmac = crypto.createHmac('sha256', secret);
+    const digest = 'sha256=' + hmac.update(payload).digest('hex');
+    return crypto.timingSafeEqual(Buffer.from(signature), Buffer.from(digest));
+  }
+  ```
+  ```python
+  import hmac
+  import hashlib
+
+  def verify_signature(payload, signature, secret):
+      expected = 'sha256=' + hmac.new(
+          secret.encode(), payload.encode(), hashlib.sha256
+      ).hexdigest()
+      return hmac.compare_digest(signature, expected)
+  ```
+</CodeGroup>
+
+## API Overview for Custom Connections
+
+Build custom integrations with Royter's REST API at `https://api.example.com/v1`.
+
+<ParamField path="integrations" param-type="GET" required="true">
+  List all your integrations.
+</ParamField>
+
+<ParamField header="Authorization" param-type="string" required="true">
+  Use `Bearer {YOUR_API_KEY}`.
+</ParamField>
+
+<Response tabs="200">
+  ```json
+  {
+    "integrations": [
+      {
+        "id": "int_789",
+        "service": "slack",
+        "status": "active",
+        "events": ["task.completed"]
+      }
+    ]
+  }
+  ```
+</Response>
+
+## Troubleshooting Common Issues
+
+<ExpandableGroup>
+  <Expandable title="Webhook Not Triggering" default-open="true">
+    Check your webhook URL accessibility and event subscriptions. Test with `curl`:
+    
+    ````bash
+    curl -X POST https://your-webhook-url.com/webhook \
+      -H "Content-Type: application/json" \
+      -d '{"test": "ping"}'
+    ````
+    
+    Review Royter logs at `https://dashboard.example.com/logs`.
+  </Expandable>
+  
+  <Expandable title="Invalid Signatures">
+    Ensure your secret matches the dashboard. Regenerate if needed.
+  </Expandable>
+  
+  <Expandable title="OAuth Errors">
+    Reauthorize the integration. Clear browser cache if using dashboard.
+  </Expandable>
+</ExpandableGroup>
+
+<Callout kind="info">
+  For advanced setups, explore the full API reference or contact support via `https://dashboard.example.com/support`.
+</Callout>

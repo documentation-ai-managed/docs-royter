@@ -1,0 +1,122 @@
+---
+title: Quickstart Guide
+description: Get up and running with Royter in just a few minutes by setting up your account and exploring the basics.
+---
+
+## Prerequisites
+
+Before starting, ensure you have:
+
+- A modern web browser like Chrome or Firefox
+- An email address for account verification
+- Optional: Node.js `{^18.0.0}` for API integrations
+
+<Callout kind="info">
+Royter requires a free account to access the dashboard. Sign up takes under 2 minutes.
+</Callout>
+
+## Create Your Royter Account
+
+Follow these steps to set up your account on the Royter dashboard.
+
+<Steps>
+  <Step title="Visit Dashboard" icon="globe">
+    Open your browser and go to `https://dashboard.example.com`.
+  </Step>
+  <Step title="Sign Up" icon="user-plus">
+    Click **Sign Up** and enter your email, name, and password. Verify your email via the confirmation link.
+  </Step>
+  <Step title="Log In" icon="log-in">
+    Return to the dashboard and log in with your credentials. You'll land on the main overview page.
+  </Step>
+</Steps>
+
+## Navigate the Dashboard
+
+Royter's dashboard provides quick access to projects, tasks, and settings. Use the sidebar to switch views.
+
+<Tabs>
+  <Tab title="Projects" icon="folder">
+    View all projects. Click **New Project** to create one.
+    
+    ```
+    Projects show status, due dates, and team members.
+    ```
+  </Tab>
+  <Tab title="Tasks" icon="check-square">
+    Manage individual tasks across projects.
+    
+    ```
+    Filter by status: Open, In Progress, Completed.
+    ```
+  </Tab>
+  <Tab title="Settings" icon="settings">
+    Configure API keys and integrations here.
+    
+    <Callout kind="tip">
+      Generate your API key in Settings `{>` Account.
+    </Callout>
+  </Tab>
+</Tabs>
+
+## Complete Your First Project
+
+Create and complete a sample project to familiarize yourself with workflows.
+
+<Steps>
+  <Step title="Create Project" icon="plus">
+    From the Projects tab, click **New Project**. Name it `My First Project` and set a description.
+  </Step>
+  <Step title="Add Task" icon="square-plus">
+    Inside the project, add a task: Title `Review docs`, assign to yourself, set due date.
+  </Step>
+  <Step title="Mark Complete" icon="check-circle">
+    Update task status to **Completed**. View project progress bar update in real-time.
+  </Step>
+</Steps>
+
+<CodeGroup tabs="JavaScript,cURL">
+  ```javascript
+  // Fetch your first project via API (use your API key)
+  const response = await fetch('https://api.example.com/v1/projects', {
+    headers: {
+      'Authorization': 'Bearer YOUR_API_KEY'
+    }
+  });
+  const projects = await response.json();
+  console.log(projects);
+  ```
+  ```bash
+  # Fetch projects using cURL
+  curl -H "Authorization: Bearer YOUR_API_KEY" \
+       https://api.example.com/v1/projects
+  ```
+</CodeGroup>
+
+## Basic Setup Tips
+
+<Expandable title="Customize Notifications" default-open="true">
+Enable email and in-app notifications in Settings `{>` Notifications. Choose frequencies: real-time, daily summaries.
+</Expandable>
+
+<Expandable title="Integrate with Tools">
+Connect GitHub or Slack via Settings `{>` Integrations. Use webhook URL `https://api.example.com/v1/webhooks`.
+</Expandable>
+
+## Next Steps
+
+<Columns cols={3}>
+  <Card title="Authentication" icon="shield" href="/authentication">
+    Secure your API calls with tokens.
+  </Card>
+  <Card title="API Reference" icon="code" href="/api-reference">
+    Explore full endpoints.
+  </Card>
+  <Card title="Advanced Features" icon="zap" href="/advanced">
+    Automations and teams.
+  </Card>
+</Columns>
+
+<Callout kind="success">
+Congratulations! You've completed the quickstart. Dive into [authentication](/authentication) for production use.
+</Callout>
